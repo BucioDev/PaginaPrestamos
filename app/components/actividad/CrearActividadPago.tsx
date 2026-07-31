@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,7 +32,7 @@ export default function CrearActividadPago({clienteId, solicitudId, pago, deudaP
                         </div>
                         <div className="flex flex-col gap-3">
                             <Label>Cantidad de pagos realizados</Label>
-                            <Input type="text" inputMode="numeric" pattern="[0-9]*" value={value}
+                            <Input type="text" inputMode="numeric" pattern="[0-9]*" defaultValue={1}
                                 onChange={(e) => {
                                     const numbersOnly = e.target.value.replace(/\D/g, "");
                                     setValue(numbersOnly); }} 
