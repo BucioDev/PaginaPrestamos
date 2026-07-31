@@ -4,6 +4,11 @@ export const loginSchema = z.object({
     password: z.string().min(1, "Contraseña Incorrecta")
 })
 
+export const actividadSchema = z.object({
+    descripcion: z.string().min(10, "la descripcion es muy corta"),
+    solicitudId: z.string("Se debe seleccionar una solicitud"),
+})
+
 export const solicitudSchema = z.object({
     mayorEdad: z.boolean("El financiamiento solo esta disponible para mayores de edad"),
     nombre: z.string("Nombre es Requerido"),

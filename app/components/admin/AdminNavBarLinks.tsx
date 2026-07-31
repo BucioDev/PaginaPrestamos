@@ -10,12 +10,12 @@ const links = [
     },
     {
         id:1,
-        name:"Solicitar Financiamiento",
-        href:"/solicitar"
+        name:"Ajustes",
+        href:"/ajusted"
     },
 ]
 
-export default function NavBarLinks({onLinkClick}:{onLinkClick?:() => void}){
+export default function AdminNavBarLinks({onLinkClick}:{onLinkClick?:() => void}){
     return (
         <>
         {links.map((link) => (

@@ -37,12 +37,19 @@ model solicitud {
   creditoVigente Boolean
   aprovado Boolean? 
   Codigo String?
-  deudaPendiente Int
+  deudaPendiente Float
   cantidad Int
   plazo Int
+  pago Float
+  fechaEntrega DateTime?
+  pagosHechos Float @default(0)
+  fechaTermino DateTime?
+  estado Int @default(0)
+  completado Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isDeleted Boolean @default(false)
 
   cliente cliente? @relation(fields: [clienteId], references: [id])
   clienteId String?
@@ -55,7 +62,7 @@ model cliente {
   telefono String
   email String
   nombreNegocio String
-  notas String
+  notas String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,7 +73,7 @@ model cliente {
 
 model actividad {
   id String @id  @default(uuid())
-  fecha DateTime
+  fecha DateTime @default(now())
   descripcion String
   
   solicitudId String

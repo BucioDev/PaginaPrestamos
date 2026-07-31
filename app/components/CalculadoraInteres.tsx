@@ -69,6 +69,7 @@ export default function CalculadoraInteres({c, p} : {c:number, p:number}){
                         </div>
                         <div className="mt-2 text-right text-2xl font-bold">
                             Tarifa Diaria: ${tarifa}
+                            <input type="hidden" value={tarifa} name="tarifa" />
                         </div>
                         <input type="hidden" value={cantidad[0] * (1 + (plazo[0] / 100))} id="total" name="total"/>
                         <div className="mt-5 flex items-center justify-center">

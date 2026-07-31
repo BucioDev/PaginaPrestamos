@@ -184,8 +184,6 @@ export default function SolicitarPage() {
                                     </Select>
                                     <p className="text-sm text-red-500">{fields.creditoVigente.errors}</p>
                                 </div>
-
-
                             </div>
                         </CardContent>
                         <CardFooter className="flex justify-end">
