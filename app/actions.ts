@@ -324,11 +324,12 @@ if (!fechaEntrega || !fechaTermino) {
 
 
     export async function confirmarEntrega(formData:FormData){
-        const id = formData.get("id") as string;
+        const solicitudId = formData.get("id") as string;
+        const clienteId = formData.get("clienteId") as string;
 
         const solicitud = await prisma.solicitud.findUnique({
             where:{
-                id:id
+                id:solicitudId
             },
         })
 
@@ -342,13 +343,17 @@ if (!fechaEntrega || !fechaTermino) {
 
         await prisma.solicitud.update({
             where:{
-                id:id,
+                id:solicitudId,
             },
             data:{
                 fechaEntrega:today,
                 fechaTermino:finalday,
             },
         })
+
+        createActividadLog(clienteId, "Dinero fue entregado al cliente", solicitudId)
+
+
 
         redirect("/exito");
 

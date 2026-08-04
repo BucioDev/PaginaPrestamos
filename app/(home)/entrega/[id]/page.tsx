@@ -21,6 +21,11 @@ async function getSolicitud(codigo:string){
             cantidad:true,
             fechaEntrega: true,
             Codigo:true,
+            cliente:{
+              select:{
+                id:true,
+              }
+            }
         }
     })
 
@@ -98,6 +103,7 @@ export default async function entregaPage({params}:{params:Promise<{codigo:strin
     
               <form action={confirmarEntrega}>
                 <input type="hidden" name="id" value={solicitud.id} />
+                <input type="hidden" name="clienteId" value={solicitud.cliente?.id} />
                 <SubmitButton text="Confirmar Entrega" />
               </form>
             </CardFooter>
