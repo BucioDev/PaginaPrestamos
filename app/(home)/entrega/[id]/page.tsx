@@ -2,7 +2,7 @@ import { confirmarEntrega } from "@/app/actions";
 import { SubmitButton } from "@/app/components/SubmitButtons";
 import { prisma } from "@/app/lib/prisma";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -88,7 +88,10 @@ export default async function entregaPage({params}:{params:Promise<{codigo:strin
                 </p>
               </div>
     
-              <Button asChild>
+              
+            </CardContent>
+            <CardFooter>
+            <Button asChild>
                 <Link href="/">Cancelar</Link>
               </Button>
     
@@ -96,7 +99,7 @@ export default async function entregaPage({params}:{params:Promise<{codigo:strin
                 <input type="hidden" name="id" value={solicitud.id} />
                 <SubmitButton text="Confirmar Entrega" />
               </form>
-            </CardContent>
+            </CardFooter>
           </Card>
         </div>
       );
