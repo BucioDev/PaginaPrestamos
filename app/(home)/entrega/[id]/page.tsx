@@ -75,7 +75,7 @@ export default async function entregaPage({params}:{params:Promise<{codigo:strin
             <CardContent className="w-full flex justify-between">
               <div className="flex flex-col gap-6">
                 <p className="text-xl font-medium">
-                  Código de Aprobación: {codigo}
+                  Código de Aprobación: {JSON.stringify(codigo)}
                 </p>
     
                 <p className="text-xl font-medium">
