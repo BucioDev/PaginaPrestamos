@@ -572,7 +572,9 @@ async function enviarAprovadoEmail(nombre:string, apellidoMaterno:string, apelli
             );
         }
 
-        const qrBuffer = await QRCode.toBuffer(codigo, {
+        const qrUrl = `https://www.pinos32.com/entrega/${encodeURIComponent(codigo)}`;
+
+        const qrBuffer = await QRCode.toBuffer(qrUrl, {
             type: "png",
             width: 180,
         });
