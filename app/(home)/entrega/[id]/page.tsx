@@ -33,14 +33,15 @@ async function getSolicitud(codigo:string){
         return notFound();
     };
 
+
     return solicitud
 }
 
 
 
-export default async function entregaPage({params}:{params:Promise<{codigo:string}>}){
-    const {codigo} = await params;
-    const solicitud = await getSolicitud(codigo);
+export default async function entregaPage({params}:{params:Promise<{id:string}>}){
+    const {id} = await params;
+    const solicitud = await getSolicitud(id);
     
     if (solicitud.fechaEntrega) {
         return (
