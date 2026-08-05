@@ -21,6 +21,7 @@ export async function GET(req: Request){
             }
         });
 
+
         return NextResponse.json(solicitudes);
 
     } catch (err){

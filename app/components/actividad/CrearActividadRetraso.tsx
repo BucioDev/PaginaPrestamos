@@ -19,13 +19,14 @@ export default function CrearActividadRetraso({clienteId, solicitudId}:{clienteI
     return (    
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Agregar Actividad</Button>
+                <Button>Agregar Retraso</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="sm:max-w-xl">
+            <form  action={createActividadRetraso}>
                 <DialogHeader>
                     <DialogTitle>Descripcion de la actividad</DialogTitle>
                 </DialogHeader>
-                <form  action={createActividadRetraso}>
+               
                     <div className="flex flex-col gap-6 mt-4">
                         <div className="flex flex-col gap-3">
                             <Textarea id="descripcion" name="descripcion" value="Cliente retrasado con pago, dias de retraso: " disabled/>
@@ -42,7 +43,7 @@ export default function CrearActividadRetraso({clienteId, solicitudId}:{clienteI
                         <input type="hidden" value={solicitudId} name="solicitud"/>
                     </div>
 
-                </form>
+                
                 <DialogFooter className="flex justify-between mt-5">
                 <DialogClose asChild>
                     <Button type="button">
@@ -52,6 +53,7 @@ export default function CrearActividadRetraso({clienteId, solicitudId}:{clienteI
 
                 <SubmitButton text="Agregar Retraso a actividad de cliente"/>
             </DialogFooter>
+            </form>
             </DialogContent>
         </Dialog>
     )

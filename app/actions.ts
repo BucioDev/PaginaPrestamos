@@ -257,8 +257,7 @@ async function revisarEstadoSolicitud(solicitudId: string) {
     const { fechaEntrega, fechaTermino, pagosHechos, deudaPendiente } = solicitud;
 
 if (!fechaEntrega || !fechaTermino) {
-  // Loan hasn't started yet
-  return null; // or return -1;
+  return null; 
 }
   
     const today = new Date();
@@ -389,7 +388,22 @@ export async function existeCliente({ data }: createClienteProps) {
       },
     });
 }
-//============================== client acitity Actions ============================
+
+export async function updateNotas(formData:FormData) {
+    const clientId = formData.get("clientId") as string;
+    const notas = formData.get("notas") as string;
+    await prisma.cliente.update({
+        where:{
+            id:clientId,
+        },
+        data:{
+            notas:notas,
+        },
+    });
+
+    redirect(`/clientes/${clientId}`)
+}
+//============================== client activity Actions ============================
 
 async function createActividadLog(clienteId:string, descripcion:string, solicitudiId:string){
 
@@ -421,6 +435,8 @@ export async function createActividadLogE(prevState: unknown, formData: FormData
             clienteId:clientId,
         }
     })
+
+    redirect(`/clientes/${clientId}`)
 }
 
 export async function createActividadPago(formData: FormData){
@@ -432,7 +448,7 @@ export async function createActividadPago(formData: FormData){
 
     const pagoTotal = (cantidad * pago).toFixed(2);
 
-    const descripcion = "Cliente pago:" + cantidad + " dias de su deuda, sumando la cantidad de: " + pagoTotal;
+    const descripcion = "Cliente pago: " + cantidad + " dias de su deuda, sumando la cantidad de: " + pagoTotal;
 
     await prisma.actividad.create({
         data:{

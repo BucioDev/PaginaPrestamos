@@ -1,10 +1,15 @@
 
+import AgregarNotaForm from "@/app/components/AgregarNotaForm";
+import CrearActividadCita from "@/app/components/actividad/CrearActividadCita";
 import CrearActividadForm from "@/app/components/actividad/CrearActividadForm";
+import CrearActividadPago from "@/app/components/actividad/CrearActividadPago";
+import CrearActividadRetraso from "@/app/components/actividad/CrearActividadRetraso";
 import { prisma } from "@/app/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -44,7 +49,7 @@ export default async function clientePage({params}:{params:Promise<{id:string}>}
         <div className="mx-auto max-w-7xl px-6">
             <div className="mt-5">
             <Button asChild>
-                <Link href="/administracion">
+                <Link href="/clientes">
                     <ChevronLeft/>
                 </Link>
             </Button>
@@ -80,9 +85,12 @@ export default async function clientePage({params}:{params:Promise<{id:string}>}
                 </div>
                 <div className="mt-5">
                         <p className="text-sm font-semibold text-slate-700">Notas sobre el Cliente</p>
-                        <p>{cliente.notas || ""}</p>
+                        <p className="whitespace-pre-wrap break-words">{cliente.notas || ""}</p>
                     </div>
             </CardContent>
+            <CardFooter className="text-right">
+                <AgregarNotaForm clienteId={cliente.id} notas={cliente.notas || ""}/>
+            </CardFooter>
         </Card>
 
         <Card className="mt-5">
@@ -97,6 +105,7 @@ export default async function clientePage({params}:{params:Promise<{id:string}>}
                             <TableHead>Cantidad Solicitada</TableHead>
                             <TableHead>Plazo</TableHead>
                             <TableHead>Deuda Pendiente</TableHead>
+                            <TableHead className="text-right">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -110,6 +119,24 @@ export default async function clientePage({params}:{params:Promise<{id:string}>}
                                 <TableCell>{solicitud.cantidad}</TableCell>
                                 <TableCell>{solicitud.plazo}</TableCell>
                                 <TableCell>{solicitud.deudaPendiente}</TableCell>
+                                <TableCell className="text-right">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="default" size="icon">
+                                                <MoreHorizontal className="h-5 w-5"/>
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuLabel>
+                                                Acciones Rapidas
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuSeparator/>
+                                            <DropdownMenuItem asChild><CrearActividadCita clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
+                                            <DropdownMenuItem asChild><CrearActividadPago clienteId={cliente.id} solicitudId={solicitud.id} pago={solicitud.pago} deudaPendiente={solicitud.deudaPendiente}/></DropdownMenuItem>
+                                            <DropdownMenuItem asChild><CrearActividadRetraso clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

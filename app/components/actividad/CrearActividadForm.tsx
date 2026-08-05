@@ -36,23 +36,25 @@ export default function CrearActividadForm({clienteId}:{clienteId:string}) {
 
     useEffect(() => {
         const fetchSolicitudes = async () => {
-            const res = await fetch("/api/solicitudes-de-cliente");
+            const res = await fetch(`/api/solicitudes-de-cliente?clientId=${clienteId}`);
             const data: Solicitud[] = await res.json();
             setSolicitudes(data);
         }
         fetchSolicitudes();
-    }, []);
+    }, [clienteId]);
 
     return (    
         <Dialog>
+            
             <DialogTrigger asChild>
                 <Button>Agregar Actividad</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="sm:max-w-xl">
+            <form id={form.id} onSubmit={form.onSubmit} action={action}>
                 <DialogHeader>
                     <DialogTitle>Descripcion de la actividad</DialogTitle>
                 </DialogHeader>
-                <form id={form.id} onSubmit={form.onSubmit} action={action}>
+                
                     <div className="flex flex-col gap-6 mt-4">
                         <div className="flex flex-col gap-3">
                             <Textarea id={fields.descripcion.id} name={fields.descripcion.name}/>
@@ -74,7 +76,7 @@ export default function CrearActividadForm({clienteId}:{clienteId:string}) {
                         </div>
                     </div>
 
-                </form>
+               
                 <DialogFooter className="flex justify-between mt-5">
                 <DialogClose asChild>
                     <Button type="button">
@@ -84,7 +86,9 @@ export default function CrearActividadForm({clienteId}:{clienteId:string}) {
 
                 <SubmitButton text="Agregar Actividad"/>
             </DialogFooter>
+            </form>
             </DialogContent>
+          
         </Dialog>
     )
 }

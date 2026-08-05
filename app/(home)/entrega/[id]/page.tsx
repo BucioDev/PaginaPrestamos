@@ -93,6 +93,7 @@ export default async function entregaPage({params}:{params:Promise<{codigo:strin
                   Cantidad Solicitada: {solicitud.cantidad}
                 </p>
               </div>
+              <p className="text-red-500 text-sm">Advertencia: este proceso deber ser hecho por la persona responsable, de otra manera se podria cancelar esta solicitud </p>
     
               
             </CardContent>

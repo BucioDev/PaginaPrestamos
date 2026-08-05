@@ -4,7 +4,7 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogT
 import { Textarea } from "@/components/ui/textarea";
 import { SubmitButton } from "../SubmitButtons";
 import {  useState } from "react";
-import {  createActividadRetraso } from "@/app/actions";
+import {  createActividadPago, createActividadRetraso } from "@/app/actions";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
@@ -19,13 +19,14 @@ export default function CrearActividadPago({clienteId, solicitudId, pago, deudaP
     return (    
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Agregar Actividad</Button>
+                <Button>Agregar Pago</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="sm:max-w-xl">
+            <form  action={createActividadPago}>
                 <DialogHeader>
                     <DialogTitle>Deuda Pendiente: {deudaPendiente.toFixed(2)}</DialogTitle>
                 </DialogHeader>
-                <form  action={createActividadRetraso}>
+                
                     <div className="flex flex-col gap-6 mt-4">
                         <div className="flex flex-col gap-3">
                             <p className="text-md font-semibold">Los pagos diarios son de: {pago.toFixed(2)}</p>
@@ -44,7 +45,7 @@ export default function CrearActividadPago({clienteId, solicitudId, pago, deudaP
                         <input type="hidden" value={pago} name="pago"/>
                     </div>
 
-                </form>
+               
                 <DialogFooter className="flex justify-between mt-5">
                 <DialogClose asChild>
                     <Button type="button">
@@ -54,6 +55,7 @@ export default function CrearActividadPago({clienteId, solicitudId, pago, deudaP
 
                 <SubmitButton text="Agregar Pago a actividad de cliente"/>
             </DialogFooter>
+            </form>
             </DialogContent>
         </Dialog>
     )

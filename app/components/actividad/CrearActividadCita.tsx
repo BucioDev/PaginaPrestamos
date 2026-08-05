@@ -20,13 +20,14 @@ export default function CrearActividadCita({clienteId, solicitudId}:{clienteId:s
     return (    
         <Dialog>
             <DialogTrigger asChild>
-                <Button>Agregar Actividad</Button>
+                <Button>Agregar Cita</Button>
             </DialogTrigger>
             <DialogContent>
+            <form  action={createActividadCita}>
                 <DialogHeader>
                     <DialogTitle>Razon de la cita</DialogTitle>
                 </DialogHeader>
-                <form  action={createActividadCita}>
+                
                     <div className="flex flex-col gap-6 mt-4">
                         <div className="flex flex-col gap-3">
                             <Textarea id="razon" name="razon"  />
@@ -67,7 +68,7 @@ export default function CrearActividadCita({clienteId, solicitudId}:{clienteId:s
                         <input type="hidden" value={solicitudId} name="solicitud"/>
                     </div>
 
-                </form>
+                
                 <DialogFooter className="flex justify-between mt-5">
                 <DialogClose asChild>
                     <Button type="button">
@@ -77,6 +78,7 @@ export default function CrearActividadCita({clienteId, solicitudId}:{clienteId:s
 
                 <SubmitButton text="Agregar Cita con el cliente"/>
             </DialogFooter>
+            </form>
             </DialogContent>
         </Dialog>
     )
