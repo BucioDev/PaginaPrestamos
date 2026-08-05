@@ -17,7 +17,7 @@ export default async function AdminLayout({children}:{children:ReactNode}){
         
                 <main className="bg-linear-to-br from-green-50 via-emerald-50 to-teal-200">
                     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between bg-transparent">
-                        <Link href="/" className="group p-2 font-semibold rounded-md">
+                        <Link href="/administracion" className="group p-2 font-semibold rounded-md">
                             Inicio
                         </Link>
                         <Link href="/administracion" className="group p-2 font-semibold rounded-md">
