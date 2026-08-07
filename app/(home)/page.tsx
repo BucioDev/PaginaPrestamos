@@ -19,7 +19,7 @@ export default function Home(){
                     <h1 className="mb-6 text-5xl font-bold leading-tight lg:text-7xl">
                         ¡Pinos32! 
                         <span className="block text-emerald-600">   
-                            Fiancia tus ideas, construye tu futuro.
+                            Financia tus ideas, construye tu futuro.
                         </span>
                         </h1>
                         <p className="max-w-xl text-lg text-slate-600">
