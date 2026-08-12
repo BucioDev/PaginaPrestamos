@@ -1,6 +1,6 @@
 "use server"
 import { parseWithZod } from "@conform-to/zod/v4";
-import { actividadSchema, loginSchema, solicitudSchema } from "./lib/zodSchemas";
+import { actividadSchema, loginSchema, solicitudPersonalSchema, solicitudSchema } from "./lib/zodSchemas";
 import { notFound, redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
@@ -97,7 +97,9 @@ export async function createSolicitud(prevState: unknown, formData: FormData){
   const tarifa = parseFloat(sanitized);
 
 
-    console.log(Object.fromEntries(formData.entries()));
+  const imagesArray = submission.value.images.flatMap((urlString) => 
+  urlString.split(",").map((url) => url.trim()))
+
 
     await prisma.solicitud.create({
         data:{
@@ -120,6 +122,8 @@ export async function createSolicitud(prevState: unknown, formData: FormData){
             cantidad: cantidad,
             plazo: plazo,
             pago: tarifa,
+            images: imagesArray,
+            tipo:"negocio",
         }
     })  
 
@@ -127,6 +131,61 @@ export async function createSolicitud(prevState: unknown, formData: FormData){
 
     
 }
+
+export async function createSolicitudPersonal(prevState: unknown, formData: FormData){
+
+    const submission = parseWithZod(formData, {
+        schema:solicitudPersonalSchema
+    });
+
+    if (submission.status !== "success"){
+        return submission.reply();
+    };
+
+    const plazo = Number(formData.get("plazo")); 
+    const cantidad = Number(formData.get("cantidad"));
+    const total = Number(formData.get("total"));
+    const rawTarifa = formData.get("tarifa");
+    if (!rawTarifa || typeof rawTarifa !== "string") {
+        throw new Error("Tarifa is required");
+      }
+    const sanitized = rawTarifa.replace(",", ".");
+  const tarifa = parseFloat(sanitized);
+
+
+
+
+    await prisma.solicitud.create({
+        data:{
+            nombre: submission.value.nombre,
+            apellidoPaterno: submission.value.apellidoPaterno,
+            apellidoMaterno: submission.value.apellidoMaterno,
+            fechaNacimiento: new Date(submission.value.fechaNacimiento),
+            telefono: submission.value.Telefono,
+            email: submission.value.email,
+            direccion: submission.value.direccion,
+            codigoPostal: submission.value.codigoPostal,
+            anosNegocio: 0,
+            nombreNegocio: " ",
+            paginaNegocio: " ",
+            descripcion: " ",
+            nombreReferencia: submission.value.nombreReferencia,
+            telefonoReferencia: submission.value.telefonoReferencia,
+            creditoVigente: submission.value.creditoVigente,
+            deudaPendiente: total,
+            cantidad: cantidad,
+            plazo: plazo,
+            pago: tarifa,
+            images: [],
+            tipo:"personal",
+        }
+    })  
+
+    redirect("/gracias")
+
+    
+}
+
 
 export async function rechazarSolicitud(formData: FormData){
 

@@ -1,9 +1,11 @@
 import { aprovarSolicitud, rechazarSolicitud, solicitudClienteSimilitud } from "@/app/actions";
+import AcceptRejectImages from "@/app/components/admin/AcceptRejectImages";
 import { prisma } from "@/app/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { da } from "date-fns/locale";
 import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -108,31 +110,48 @@ export default async function SolicitudPage({params}:{params:Promise<{id:string}
                     </div>
 
                     </div>
-                    <h2 className="text-xl font-bold mt-8">Negocio</h2>
+                    {data.tipo === "negocio" && (
+                        <>
+                            <h2 className="text-xl font-bold mt-8">Negocio</h2>
 
-                        <div className="grid grid-cols-3 gap-6">
+                            <div className="grid grid-cols-4 gap-6">
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-500">
+                                        Nombre
+                                    </p>
+                                    <p>{data.nombreNegocio}</p>
+                                </div>
 
-                        <div>
-                            <p className="text-sm font-semibold text-gray-500">Nombre</p>
-                            <p>{data.nombreNegocio}</p>
-                        </div>
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-500">
+                                        Años en el negocio
+                                    </p>
+                                    <p>{data.anosNegocio}</p>
+                                </div>
 
-                        <div>
-                            <p className="text-sm font-semibold text-gray-500">Años en el negocio</p>
-                            <p>{data.anosNegocio}</p>
-                        </div>
+                                <div>
+                                    <p className="text-sm font-semibold text-gray-500">
+                                        Página web
+                                    </p>
+                                    <p>{data.paginaNegocio || "-"}</p>
+                                </div>
 
-                        <div>
-                            <p className="text-sm font-semibold text-gray-500">Página web</p>
-                            <p>{data.paginaNegocio || "-"}</p>
-                        </div>
+                                <div className="col-span-3">
+                                    <p className="text-sm font-semibold text-gray-500">
+                                        Descripción
+                                    </p>
+                                    <p>{data.descripcion}</p>
+                                </div>
 
-                        <div className="col-span-3">
-                            <p className="text-sm font-semibold text-gray-500">Descripción</p>
-                            <p>{data.descripcion}</p>
-                        </div>
-
-                        </div>
+                                <div className="col-span-4">
+                                    <p className="text-sm font-semibold text-gray-500">
+                                        Imagenes del negocio
+                                    </p>
+                                    <AcceptRejectImages images={data.images} />
+                                </div>
+                            </div>
+                        </>
+                    )}
                         <h2 className="text-xl font-bold mt-8">Referencia</h2>
 
                             <div className="grid grid-cols-2 gap-6">

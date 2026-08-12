@@ -109,36 +109,46 @@ export default async function clientePage({params}:{params:Promise<{id:string}>}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {cliente.solicitudes.map((solicitud) => (
-                            <TableRow key={solicitud.id}>
-                                <TableCell>
-                                    <Link href={`/solicitud/${solicitud.id}`}>
-                                        {solicitud.Codigo}
-                                    </Link>
-                                </TableCell>
-                                <TableCell>{solicitud.cantidad}</TableCell>
-                                <TableCell>{solicitud.plazo}</TableCell>
-                                <TableCell>{solicitud.deudaPendiente}</TableCell>
-                                <TableCell className="text-right">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="default" size="icon">
-                                                <MoreHorizontal className="h-5 w-5"/>
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end">
-                                            <DropdownMenuLabel>
-                                                Acciones Rapidas
-                                            </DropdownMenuLabel>
-                                            <DropdownMenuSeparator/>
-                                            <DropdownMenuItem asChild><CrearActividadCita clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
-                                            <DropdownMenuItem asChild><CrearActividadPago clienteId={cliente.id} solicitudId={solicitud.id} pago={solicitud.pago} deudaPendiente={solicitud.deudaPendiente}/></DropdownMenuItem>
-                                            <DropdownMenuItem asChild><CrearActividadRetraso clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {cliente.solicitudes.map((solicitud) => {
+                            const rowColor =
+                                solicitud.estado === 3
+                                    ? "bg-red-100 hover:bg-red-200"
+                                    : solicitud.estado === 2
+                                    ? "bg-yellow-100 hover:bg-yellow-200"
+                                    : solicitud.estado === 1
+                                    ? "bg-blue-100 hover:bg-blue-200"
+                                    : "bg-green-100 hover:bg-green-200";
+                                    return (
+                                        <TableRow key={solicitud.id} className={rowColor}>
+                                            <TableCell>
+                                                <Link href={`/solicitud/${solicitud.id}`}>
+                                                    {solicitud.Codigo}
+                                                </Link>
+                                            </TableCell>
+                                            <TableCell>{solicitud.cantidad}</TableCell>
+                                            <TableCell>{solicitud.plazo}</TableCell>
+                                            <TableCell>{solicitud.deudaPendiente}</TableCell>
+                                            <TableCell className="text-right">
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="default" size="icon">
+                                                            <MoreHorizontal className="h-5 w-5"/>
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuLabel>
+                                                            Acciones Rapidas
+                                                        </DropdownMenuLabel>
+                                                        <DropdownMenuSeparator/>
+                                                        <DropdownMenuItem asChild><CrearActividadCita clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
+                                                        <DropdownMenuItem asChild><CrearActividadPago clienteId={cliente.id} solicitudId={solicitud.id} pago={solicitud.pago} deudaPendiente={solicitud.deudaPendiente}/></DropdownMenuItem>
+                                                        <DropdownMenuItem asChild><CrearActividadRetraso clienteId={cliente.id} solicitudId={solicitud.id}/></DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                        })}
                     </TableBody>
                 </Table>
             </CardContent>
