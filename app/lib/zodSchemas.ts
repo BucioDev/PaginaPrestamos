@@ -19,7 +19,16 @@ export const solicitudSchema = z.object({
     email: z.email("Correo Invalido"),
     confirmaEmail: z.email("Correo Invalido"),
     direccion: z.string("Direccion es Requerido"),
-    codigoPostal: z.number("Codigo Postal es Requerido"),
+    codigoPostal: z
+    .string("Código Postal es Requerido")
+    .regex(/^\d{5}$/, "El Código Postal debe tener 5 dígitos")
+    .refine(
+      (value) => {
+        const cp = Number(value);
+        return cp >= 22000 && cp <= 22700;
+      },
+      "El Código Postal debe pertenecer a Tijuana, Baja California"
+    ),
     anosNegocio: z.number("Años del negocio es Requerido"),
     nombreNegocio: z.string("Nombre del Negocio es Requerido"),
     paginaNegocio: z.string().optional(),
@@ -43,7 +52,16 @@ export const solicitudPersonalSchema = z.object({
     email: z.email("Correo Invalido"),
     confirmaEmail: z.email("Correo Invalido"),
     direccion: z.string("Direccion es Requerido"),
-    codigoPostal: z.number("Codigo Postal es Requerido"),
+    codigoPostal: z
+    .string("Código Postal es Requerido")
+    .regex(/^\d{5}$/, "El Código Postal debe tener 5 dígitos")
+    .refine(
+      (value) => {
+        const cp = Number(value);
+        return cp >= 22000 && cp <= 22700;
+      },
+      "El Código Postal debe pertenecer a Tijuana, Baja California"
+    ),
     nombreReferencia: z.string("Nombre de la Referencia es Requerido"),
     telefonoReferencia: z.string("Numero de Telefono de la Referencia es Requerido"),
     creditoVigente: z.enum(["0", "1"]).transform(v => v === "1"),

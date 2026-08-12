@@ -149,8 +149,9 @@ export default function SolicitarForm() {
                                 </div>
                                 <div className="flex flex-col gap-3">
                                     <Label>Codigo postal</Label>
-                                    <Input className="w-full focus-visible:ring-blue-500 border-2 border-slate-400" type="text"
-                                    id={fields.codigoPostal.id} name={fields.codigoPostal.name}/>
+                                    <Input className="w-full focus-visible:ring-blue-500 border-2 border-slate-400"
+                                        type="text" inputMode="numeric" maxLength={5}
+                                        id={fields.codigoPostal.id} name={fields.codigoPostal.name} />
                                     <p className="text-sm text-red-500">{fields.codigoPostal.errors}</p>
                                 </div>
                                 <div className="flex flex-col gap-3">
