@@ -27,7 +27,7 @@ export const solicitudSchema = z.object({
         const cp = Number(value);
         return cp >= 22000 && cp <= 22700;
       },
-      "El Código Postal debe pertenecer a Tijuana, Baja California"
+      "El Código Postal debe pertenecer a Tijuana, Baja California. Lo sentimos, por el momento aún no contamos con cobertura en su localidad"
     ),
     anosNegocio: z.number("Años del negocio es Requerido"),
     nombreNegocio: z.string("Nombre del Negocio es Requerido"),
@@ -60,7 +60,7 @@ export const solicitudPersonalSchema = z.object({
         const cp = Number(value);
         return cp >= 22000 && cp <= 22700;
       },
-      "El Código Postal debe pertenecer a Tijuana, Baja California"
+      "El Código Postal debe pertenecer a Tijuana, Baja California. Lo sentimos, por el momento aún no contamos con cobertura en su localidad"
     ),
     nombreReferencia: z.string("Nombre de la Referencia es Requerido"),
     telefonoReferencia: z.string("Numero de Telefono de la Referencia es Requerido"),
