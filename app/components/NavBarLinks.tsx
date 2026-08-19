@@ -20,7 +20,7 @@ export default function NavBarLinks({onLinkClick}:{onLinkClick?:() => void}){
         <>
         {links.map((link) => (
             <Link key={link.id} href={link.href} onClick={onLinkClick}
-            className="group p-2 font-semibold rounded-md">
+            className=" rounded-md px-3 py-2 font-semibold transition-colors hover:bg-emerald-100 hover:text-emerald-700 ">
                 {link.name}
             </Link>
         ))

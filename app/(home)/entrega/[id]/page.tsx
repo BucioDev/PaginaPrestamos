@@ -70,48 +70,60 @@ export default async function entregaPage({params}:{params:Promise<{id:string}>}
       }
     
       return (
-        <div className="h-[80vh] w-full flex items-center justify-center">
-          <Card className="w-full max-w-xl">
-            <CardHeader>
-              <CardTitle>Datos de solicitud</CardTitle>
-              <CardDescription>
-                Por favor confirme que los datos son correctos antes de proceder.
-              </CardDescription>
-            </CardHeader>
+        <div className="flex min-h-[80vh] w-full items-center justify-center px-4 py-8 sm:px-6">
+            <Card className="w-full max-w-xl">
+                <CardHeader className="px-4 sm:px-6">
+                    <CardTitle className="text-xl sm:text-2xl">
+                        Datos de solicitud
+                    </CardTitle>
     
-            <CardContent className="w-full flex justify-between">
-              <div className="flex flex-col gap-6">
-                <p className="text-xl font-medium">
-                  Código de Aprobación: {solicitud.Codigo}
-                </p>
+                    <CardDescription className="text-sm sm:text-base">
+                        Por favor confirme que los datos son correctos antes de
+                        proceder.
+                    </CardDescription>
+                </CardHeader>
     
-                <p className="text-xl font-medium">
-                  Nombre del Cliente: {solicitud.nombre}{" "}
-                  {solicitud.apellidoPaterno} {solicitud.apellidoMaterno}
-                </p>
+                <CardContent className="w-full px-4 sm:px-6">
+                    <div className="flex flex-col gap-5 sm:gap-6">
+                        <p className="text-lg font-medium sm:text-xl">
+                            Código de Aprobación: {solicitud.Codigo}
+                        </p>
     
-                <p className="text-xl font-medium">
-                  Cantidad Solicitada: {solicitud.cantidad}
-                </p>
-
-                <p className="text-red-500 text-sm mt-5">Advertencia: este proceso deber ser hecho por la persona responsable, de otra manera se podria cancelar esta solicitud </p>
-              </div>
-              
+                        <p className="text-lg font-medium sm:text-xl">
+                            Nombre del Cliente: {solicitud.nombre}{" "}
+                            {solicitud.apellidoPaterno}{" "}
+                            {solicitud.apellidoMaterno}
+                        </p>
     
-              
-            </CardContent>
-            <CardFooter>
-            <Button asChild>
-                <Link href="/">Cancelar</Link>
-              </Button>
+                        <p className="text-lg font-medium sm:text-xl">
+                            Cantidad Solicitada: {solicitud.cantidad}
+                        </p>
     
-              <form action={confirmarEntrega}>
-                <input type="hidden" name="id" value={solicitud.id} />
-                <input type="hidden" name="clienteId" value={solicitud.cliente?.id} />
-                <SubmitButton text="Confirmar Entrega" />
-              </form>
-            </CardFooter>
-          </Card>
+                        <p className="mt-3 text-sm text-red-500 sm:mt-5">
+                            Advertencia: este proceso debe ser hecho por la persona
+                            responsable, de otra manera se podría cancelar esta
+                            solicitud
+                        </p>
+                    </div>
+                </CardContent>
+    
+                <CardFooter className="flex flex-col gap-3 px-4 sm:flex-row sm:justify-between sm:px-6">
+                    <Button asChild className="w-full sm:w-auto">
+                        <Link href="/">Cancelar</Link>
+                    </Button>
+    
+                    <form action={confirmarEntrega} className="w-full sm:w-auto">
+                        <input type="hidden" name="id" value={solicitud.id}/>
+                        <input
+                            type="hidden"
+                            name="clienteId"
+                            value={solicitud.cliente?.id}
+                        />
+    
+                        <SubmitButton text="Confirmar Entrega"/>
+                    </form>
+                </CardFooter>
+            </Card>
         </div>
-      );
+    );
     }
