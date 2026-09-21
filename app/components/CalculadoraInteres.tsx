@@ -23,7 +23,7 @@ export default function CalculadoraInteres({c, p} : {c:number, p:number}){
             const monto = cantidad[0];
             const dias = plazo[0];
     
-            const interes = dias / 100;
+            const interes = 0.20;
             const totalPagar = monto * (1 + interes);
     
             return Number((totalPagar / dias).toFixed(2));
